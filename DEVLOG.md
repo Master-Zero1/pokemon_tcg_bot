@@ -34,3 +34,23 @@ weakness, resistance, energyType, basic/stage1/stage2/ex/megaEx/tera aceSpec fla
 ### Next:
 Read sample main.py from data/sample to understand how obs_dict is structured and how the agent() function works.
 
+## June 28, 2026
+
+### SLOT 1
+
+### What I Did:
+- Studied the 5 starter notebooks and analysed them
+- Verified all required cards and their Id's from the competition pool
+- Constructed a legal 60-card Dragapult ex/ Dusknoir deck
+-  Created the initial deck.csv file containing the deck list
+
+### What I Understood:
+- Choosing a strong, established meta deck reduces uncertainty when evaluation AI performance
+- Dragapult ex/ Dusknoir has a clear starategic game plan, strong choice for MCTS and opponent modelling.
+- Competition deck are represented as a list of 60 card ID's
+- Before implementing the agent, all card ID's must be verified against the competition card database.
+
+### Next:
+- Read the sample main.py
+- Understand the strucutre of agent(obs_dict)
+- Create the first minimal main.py that loads deck.csv and successfully runs a game without crashing.
