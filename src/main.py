@@ -105,8 +105,10 @@ def main_option_proc(obs: Observation, damage: int):
 def agent(obs_dict: dict) -> list[int]:
 
     obs = to_observation_class(obs_dict)
-    if obs.select == None:
+    if obs.select is None:
         return my_deck
+    if len(obs.select.option) == 0:
+        return []
     
     global pre_turn_log
     global current_turn_log
@@ -115,7 +117,6 @@ def agent(obs_dict: dict) -> list[int]:
     select = obs.select
     my_index = state.yourIndex
     my_state = state.players[my_index]
-    op_state = state.players[1-my_index]
 
     global bench_attacker
 
@@ -123,7 +124,6 @@ def agent(obs_dict: dict) -> list[int]:
     hand_counts = defaultdict(int)
     discard_counts = defaultdict(int)
 
-    active_id = 0
     bench_attacker = False
     can_evolve_dreepy = False
     evolve_dreepy_count = 0
@@ -131,7 +131,6 @@ def agent(obs_dict: dict) -> list[int]:
     for card in my_state.active:
         if card is None:
             continue
-        active_id = card.id
         field_counts[card.id] += 1
         if not card.appearThisTurn:
             if card.id == Dreepy:
@@ -141,6 +140,8 @@ def agent(obs_dict: dict) -> list[int]:
                 can_evolve_drakloak = True
 
     for card in my_state.bench:
+        if card is None:
+            continue
         field_counts[card.id] += 1
         if not card.appearThisTurn:
             if card.id == Dreepy:
@@ -173,7 +174,7 @@ def agent(obs_dict: dict) -> list[int]:
         elif option.type == OptionType.EVOLVE:
             score = 50000
         elif option.type == OptionType.ATTACK:
-            score = 50000 
+            score = 50000 + option.attackId
         elif option.type == OptionType.RETREAT:
             if bench_attacker:
                 score = 5000
@@ -211,4 +212,7 @@ def agent(obs_dict: dict) -> list[int]:
 
     desc = [i for i, _ in sorted(enumerate(scores), key=lambda x: x[1], reverse=True)]
 
-    return desc[:select.maxCount]
+    if len(desc) < select.minCount:
+        return list(range(select.minCount))
+
+    return desc[:min(select.maxCount, len(desc))]
