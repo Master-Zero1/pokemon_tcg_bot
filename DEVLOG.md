@@ -54,3 +54,38 @@ Read sample main.py from data/sample to understand how obs_dict is structured an
 - Read the sample main.py
 - Understand the strucutre of agent(obs_dict)
 - Create the first minimal main.py that loads deck.csv and successfully runs a game without crashing.
+
+## June 29, 2026
+
+### SLOT 1
+
+### What I Did:
+- Created the initial `main.py` agent architecture.
+- Added deck loading and card database lookup system.
+- Defined deck constants and global game-state variables.
+- Implemented the core `agent()` function skeleton.
+- Added basic game state parsing:
+    - Active Pokemon
+    - Bench
+    - Hand
+    - Discard pile
+- Implemented a simple heuristic scoreing system for:
+    - Attack
+    - Evolution
+    - Ability
+    - Retreat
+    - Energy attachment
+    - Card play actions
+- Added placeholder helper functions for future strategic logic
+
+**Status:** Base agent framework completed
+
+### What I Understood:
+- CABT agents operate as a rule-based scoring systems over legal actions.
+- `obs.select.option` contains all legal actions available during a decision step
+- The Dragapult/Dusknoir strategy can be added incrementally on top of a generic action-selection engine.
+
+### Next:
+- Implement setup heuristicsL
+    - Other pokemons opening strategies and search and evolution priorities
+    - Basic energy attachment logic
