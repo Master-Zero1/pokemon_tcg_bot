@@ -11,11 +11,11 @@ Dragapult ex / Dusknoir Deck
 
 """
 
-#Load deck.csv in the dataset
-file_path = "deck.csv"
-if not os.path.exists(file_path):
-    file_path = "/kaggle_simulations/agent/" + file_path
-with open(file_path, "r") as file:
+# #Load deck.csv in the dataset
+# file_path = "deck.csv"
+# if not os.path.exists(file_path):
+#     file_path = "/kaggle_simulations/agent/" + file_path
+with open(r"C:\Users\prith\Downloads\Project - ml\Pokemon TCG Bot\pokemon_tcg_bot\data\deck.csv", "r") as file:
     csv = file.read().split("\n")
 my_deck = []
 for i in range(60):
