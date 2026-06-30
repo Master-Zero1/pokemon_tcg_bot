@@ -1,9 +1,5 @@
-import os
-import sys
-sys.path.append(os.path.dirname(os.path.abspath(__file__)))
-
 from collections import defaultdict
-
+import os
 from cg.api import AreaType, CardType, Log, Observation, OptionType, Card, Pokemon, all_card_data, to_observation_class
 
 """
@@ -12,10 +8,10 @@ Dragapult ex / Dusknoir Deck
 """
 
 #Load deck.csv in the dataset
-file_path = "deck.csv"
-if not os.path.exists(file_path):
-    file_path = "/kaggle_simulations/agent/" + file_path
-with open(file_path, "r") as file:
+deck_path = "deck.csv"
+if not os.path.exists(deck_path):
+    deck_path = "/kaggle_simulations/agent/deck.csv"
+with open(deck_path, "r") as file:
     csv = file.read().split("\n")
 my_deck = []
 for i in range(60):
@@ -174,7 +170,7 @@ def agent(obs_dict: dict) -> list[int]:
         elif option.type == OptionType.EVOLVE:
             score = 50000
         elif option.type == OptionType.ATTACK:
-            score = 50000 + option.attackId
+            score = 50000 + (option.attackId or 0)
         elif option.type == OptionType.RETREAT:
             if bench_attacker:
                 score = 5000
@@ -213,6 +209,6 @@ def agent(obs_dict: dict) -> list[int]:
     desc = [i for i, _ in sorted(enumerate(scores), key=lambda x: x[1], reverse=True)]
 
     if len(desc) < select.minCount:
-        return list(range(select.minCount))
+        return list(range(min(select.minCount, len(select.option))))
 
     return desc[:min(select.maxCount, len(desc))]
