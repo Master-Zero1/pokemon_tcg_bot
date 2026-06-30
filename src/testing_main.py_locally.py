@@ -7,6 +7,8 @@ from cg.api import to_observation_class
 from main import agent, my_deck
 import random
 
+#when testing, make sure to change the file path for local system.
+
 def random_agent(obs_dict):
     obs = to_observation_class(obs_dict)
 
